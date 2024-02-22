@@ -1,0 +1,2 @@
+rootProject.name = 'webflux-root'
+include 'webflux-01'
