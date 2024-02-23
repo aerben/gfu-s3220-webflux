@@ -2,20 +2,19 @@ package digital.erben.webflux001.examples;
 
 import net.datafaker.Faker;
 import net.datafaker.providers.entertainment.StarWars;
+import org.junit.jupiter.api.Test;
 import org.reactivestreams.Publisher;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.Duration;
 
 @SuppressWarnings("ALL")
-//@Component
-public class PublisherExamples implements InitializingBean {
+public class PublisherExamplesTest {
 
-    @Override
-    public void afterPropertiesSet() {
+    @Test
+    public void example() {
         var faker = new Faker();
         StarWars starWars = faker.starWars();
 

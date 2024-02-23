@@ -2,25 +2,22 @@ package digital.erben.webflux001.examples;
 
 import net.datafaker.Faker;
 import net.datafaker.providers.base.Lorem;
+import org.junit.jupiter.api.Test;
 import org.reactivestreams.Publisher;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.GroupedFlux;
 import reactor.core.publisher.Mono;
 
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.function.BiFunction;
 import java.util.function.Function;
 
-@Component
-public class IntermediatesExample implements InitializingBean {
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
+public class IntermediatesExampleTest {
+
+    @Test
+    public void example() {
         Lorem lorem = new Faker().lorem();
         var publisher =
             Flux.<String>generate(sink -> {
@@ -51,7 +48,6 @@ public class IntermediatesExample implements InitializingBean {
                 System.out.println("Word counts by first character: " + results.getT2());
                 System.out.println("Word counts by length: " + results.getT3());
             }, Throwable::printStackTrace);
-
     }
 
     private static <K> Function<GroupedFlux<K, String>, Publisher<? extends Map.Entry<K, Long>>> groupToCount() {
