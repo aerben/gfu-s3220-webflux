@@ -10,6 +10,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/webflux-01" />
+            <option value="$PROJECT_DIR$/webflux-02" />
           </set>
         </option>
       </GradleProjectSettings>
