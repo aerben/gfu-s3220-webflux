@@ -1,0 +1,16 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            clientId: d8a431d8c85ec17e4cb9
+            clientSecret: f1f78b9fbf287b2b4029ea7b647b9614cd79b571
+            scope: read:user
+        provider:
+          github:
+            authorization-uri: https://github.com/login/oauth/authorize
+            token-uri: https://github.com/login/oauth/access_token
+            user-info-uri: https://api.github.com/user
+            user-name-attribute: id
+            userNameAttribute: name
