@@ -1,0 +1,25 @@
+package digital.erben.reactiveweb.cities;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import digital.erben.reactiveweb.cities.model.CitiesResponse;
+import digital.erben.reactiveweb.cities.model.City;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Objects;
+import org.springframework.stereotype.Component;
+import reactor.core.publisher.Flux;
+
+@Component
+public class CitiesRepository {
+
+	public Flux<City> loadCities() {
+		try {
+			InputStream resourceAsStream = this.getClass().getClassLoader().getResourceAsStream("cities.json");
+			Objects.requireNonNull(resourceAsStream);
+			CitiesResponse geoData = new ObjectMapper().readValue(resourceAsStream, CitiesResponse.class);
+			return Flux.fromIterable(geoData.data());
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+}

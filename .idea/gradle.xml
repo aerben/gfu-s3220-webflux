@@ -9,8 +9,8 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/webflux-01" />
-            <option value="$PROJECT_DIR$/webflux-02" />
+            <option value="$PROJECT_DIR$/01-basic-types" />
+            <option value="$PROJECT_DIR$/02-webservices" />
           </set>
         </option>
       </GradleProjectSettings>

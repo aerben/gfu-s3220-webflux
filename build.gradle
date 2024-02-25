@@ -1,6 +1,0 @@
-group = 'digital.erben.gfu'
-version = '1.0-SNAPSHOT'
-
-repositories {
-    mavenCentral()
-}
