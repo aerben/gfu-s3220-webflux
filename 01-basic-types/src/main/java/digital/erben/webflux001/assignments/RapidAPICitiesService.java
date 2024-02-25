@@ -11,7 +11,7 @@ public class RapidAPICitiesService {
 
 	/**
 	 * You can find all relevant request parameters here:
-	 * <a href="https://rapidapi.com/wirefreethought/api/geodb-cities/">...</a>
+	 * <a href="https://rapidapi.com/wirefreethought/api/geodb-cities/">Rapid-API documentation</a>
 	 */
 	private static final String BASE_URL = "https://wft-geo-db.p.rapidapi.com/v1/geo/cities?limit=100";
 
@@ -28,12 +28,6 @@ public class RapidAPICitiesService {
 	 * @return a list of cities for the given country code
 	 */
 	public Mono<List<City>> retrieveCitiesForCountry(String countryCode) {
-		// hint:
-		// WebClient.create().get()
-		// .uri(URI.create(
-		// BASE_URL + "&countryIds=" + countryCode))
-		// .header(RAPID_URL_API_KEY_HEADER, RAPID_URL_API_KEY_HEADER_VALUE)
-		// .header(RAPID_URL_API_HOST_HEADER, RAPID_URL_API_HOST_HEADER_VALUE)
 		throw new UnsupportedOperationException("Not implemented");
 	}
 
