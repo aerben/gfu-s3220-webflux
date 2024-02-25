@@ -31,31 +31,40 @@ public class PublisherExamplesTest {
 		Mono.fromCallable(starWars::quotes).subscribe(System.out::println);
 
 		// `error` legt einen Publisher an, der direkt in einem Fehlerzustand ist
-		Mono.error(new RuntimeException("Failure")).onErrorResume(e -> Mono.just(e.getMessage()))
-				.subscribe(System.out::println);
+		Mono.error(new RuntimeException("Failure"))
+			.onErrorResume(e -> Mono.just(e.getMessage()))
+			.subscribe(System.out::println);
 
-		Flux.error(new RuntimeException("Failure")).onErrorResume(e -> Mono.just(e.getMessage()))
-				.subscribe(System.out::println);
+		Flux.error(new RuntimeException("Failure"))
+			.onErrorResume(e -> Mono.just(e.getMessage()))
+			.subscribe(System.out::println);
 
 		// Publisher lassen sich mit `create` anlegen. Der übergebene Consumer enthält
 		// eine Sink, auf der man mit `success` bzw. `next` neue Werte anlegen kann.
-		Mono.create(monoSink -> monoSink.success(starWars.planets())).subscribe(System.out::println);
+		Mono.create(monoSink -> monoSink.success(starWars.planets()))
+			.subscribe(System.out::println);
 
-		Flux.create(fluxSink -> fluxSink.next(starWars.callSign())).subscribe(System.out::println);
+		Flux.create(fluxSink -> fluxSink.next(starWars.callSign()))
+			.subscribe(System.out::println);
 
 		Mono.create(monoSink -> monoSink.error(new RuntimeException("Failure")))
-				.onErrorResume(e -> Mono.just(e.getMessage())).subscribe(System.out::println);
+			.onErrorResume(e -> Mono.just(e.getMessage()))
+			.subscribe(System.out::println);
 
 		// `delay` legt ein Mono an, das erst nach einer fixen Duration aufgelöst wird.
-		Mono.delay(Duration.ofSeconds(1)).subscribe(System.out::println);
+		Mono.delay(Duration.ofSeconds(1))
+			.subscribe(System.out::println);
 
 		// `generate` für Flux funktioniert wie bei Streams.
 		// Die übergebene Sink wird aufgerufen, um neue Werte zu erzeugen, solange
 		// Subscriber sie anfragen.
-		Flux.generate(sink -> sink.next(starWars.quotes())).delayElements(Duration.ofSeconds(1))
-				.subscribe(System.out::println);
+		Flux.generate(sink -> sink.next(starWars.quotes()))
+			.delayElements(Duration.ofSeconds(1))
+			.subscribe(System.out::println);
 
-		Mono.just(starWars.wookieWords()).map(String::toLowerCase).filter(s -> s.length() % 2 == 0)
-				.subscribe(System.out::println);
+		Mono.just(starWars.wookieWords())
+			.map(String::toLowerCase)
+			.filter(s -> s.length() % 2 == 0)
+			.subscribe(System.out::println);
 	}
 }

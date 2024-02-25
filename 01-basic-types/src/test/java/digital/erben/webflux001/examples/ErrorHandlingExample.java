@@ -39,31 +39,47 @@ public class ErrorHandlingExample {
 			WebClient webClient = WebClient.create();
 
 			URI uri = URI.create(mockServer.getEndpoint() + "/bookmarks");
-			Flux<Bookmark> result = webClient.get().uri(uri).accept(org.springframework.http.MediaType.APPLICATION_JSON)
-					.retrieve().bodyToFlux(Bookmark.class);
+			Flux<Bookmark> result = webClient.get()
+				.uri(uri)
+				.accept(org.springframework.http.MediaType.APPLICATION_JSON)
+				.retrieve()
+				.bodyToFlux(Bookmark.class);
 
-			StepVerifier.create(result).expectNextCount(10).verifyComplete();
+			StepVerifier.create(result)
+				.expectNextCount(10)
+				.verifyComplete();
 
 			Hooks.resetOnOperatorDebug(); // enabled by IntelliJ on startup
-			Mono<Bookmark> postBookmark = webClient.post().uri(uri).retrieve().bodyToMono(Bookmark.class);
+			Mono<Bookmark> postBookmark = webClient.post()
+				.uri(uri)
+				.retrieve()
+				.bodyToMono(Bookmark.class);
 
-			StepVerifier.create(postBookmark).expectNextCount(1).verifyComplete();
+			StepVerifier.create(postBookmark)
+				.expectNextCount(1)
+				.verifyComplete();
 		}
 	}
 
 	private MockServerClient setupMockServerReturning400() throws JsonProcessingException {
 		MockServerClient mockServerClient = new MockServerClient(mockServer.getHost(), mockServer.getServerPort());
 
-		mockServerClient.when(request().withPath("/bookmarks").withMethod("POST"))
-				.respond(response().withStatusCode(400));
+		mockServerClient
+			.when(request().withPath("/bookmarks").withMethod("POST"))
+			.respond(response().withStatusCode(400));
 
 		List<Bookmark> bookmarks = IntStream.range(0, 10).mapToObj(i -> new Bookmark(i, i, i)).toList();
 		String serialized = new ObjectMapper().writeValueAsString(bookmarks);
 
 		mockServerClient
-				.when(request().withPath("/bookmarks").withMethod("GET")
-						.withHeader(Header.header("Accept", MediaType.APPLICATION_JSON.toString())))
-				.respond(response().withBody(serialized).withContentType(MediaType.APPLICATION_JSON));
+				.when(request()
+					.withPath("/bookmarks")
+					.withMethod("GET")
+					.withHeader(Header.header("Accept", MediaType.APPLICATION_JSON.toString())))
+				.respond(response()
+					.withBody(serialized)
+					.withContentType(MediaType.APPLICATION_JSON)
+				);
 
 		return mockServerClient;
 	}

@@ -29,24 +29,32 @@ public class BookmarksControllerTest {
 		Bookmark bookmark = new Bookmark(1L, 1L);
 		when(service.findById(1L)).thenReturn(Mono.just(bookmark));
 
-		StepVerifier.create(controller.getBookmark(1L)).expectNext(bookmark).verifyComplete();
+		StepVerifier.create(controller.getBookmark(1L))
+			.expectNext(bookmark)
+			.verifyComplete();
 	}
 
 	@Test
 	public void getAllBookmarks() {
 		Bookmark bookmark1 = new Bookmark(1L, 1L);
 		Bookmark bookmark2 = new Bookmark(2L, 2L);
-		when(service.findAll()).thenReturn(Flux.just(bookmark1, bookmark2));
+		when(service.findAll())
+			.thenReturn(Flux.just(bookmark1, bookmark2));
 
-		StepVerifier.create(controller.getAllBookmarks()).expectNext(bookmark1, bookmark2).verifyComplete();
+		StepVerifier.create(controller.getAllBookmarks())
+			.expectNext(bookmark1, bookmark2)
+			.verifyComplete();
 	}
 
 	@Test
 	public void createBookmark() {
 		Bookmark bookmark = new Bookmark(1L, 1L);
-		when(service.save(bookmark)).thenReturn(Mono.just(bookmark));
+		when(service.save(bookmark))
+			.thenReturn(Mono.just(bookmark));
 
-		StepVerifier.create(controller.createBookmark(bookmark)).expectNext(bookmark).verifyComplete();
+		StepVerifier.create(controller.createBookmark(bookmark))
+			.expectNext(bookmark)
+			.verifyComplete();
 	}
 
 	@Test
@@ -55,8 +63,9 @@ public class BookmarksControllerTest {
 		when(service.findById(1L)).thenReturn(Mono.just(bookmark));
 		when(service.save(bookmark)).thenReturn(Mono.just(bookmark));
 
-		StepVerifier.create(controller.updateBookmark(1L, bookmark)).expectNext(ResponseEntity.ok(bookmark))
-				.verifyComplete();
+		StepVerifier.create(controller.updateBookmark(1L, bookmark))
+			.expectNext(ResponseEntity.ok(bookmark))
+			.verifyComplete();
 	}
 
 	@Test
@@ -64,14 +73,16 @@ public class BookmarksControllerTest {
 		Bookmark bookmark = new Bookmark(1L, 1L);
 		when(service.findById(1L)).thenReturn(Mono.empty());
 
-		StepVerifier.create(controller.updateBookmark(1L, bookmark)).expectNext(ResponseEntity.notFound().build())
-				.verifyComplete();
+		StepVerifier.create(controller.updateBookmark(1L, bookmark))
+			.expectNext(ResponseEntity.notFound().build())
+			.verifyComplete();
 	}
 
 	@Test
   public void deleteBookmark() {
     when(service.deleteById(1L)).thenReturn(Mono.empty());
 
-    StepVerifier.create(controller.deleteBookmark(1L)).verifyComplete();
+    StepVerifier.create(controller.deleteBookmark(1L))
+		.verifyComplete();
   }
 }

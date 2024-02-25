@@ -25,8 +25,11 @@ public class CitiesControllerTest {
 				13.4050, 3769495);
 		Mockito.when(citiesDataset.loadCities()).thenReturn(Flux.just(testCity));
 
-		webTestClient.get().uri("/cities").accept(MediaType.APPLICATION_JSON).exchange().expectStatus().isOk()
-				.expectBodyList(City.class).returnResult();
+		webTestClient.get().uri("/cities")
+			.accept(MediaType.APPLICATION_JSON)
+			.exchange()
+			.expectStatus().isOk()
+			.expectBodyList(City.class).returnResult();
 	}
 
 	@Test
@@ -38,10 +41,13 @@ public class CitiesControllerTest {
 		City testCity3 = new City(1, "Q64", "city", "Berlin", "Berlin", "Germany", "DE", "Berlin", "BE", "Q64", 52.5200,
 				13.4050, 13);
 
-		Mockito.when(citiesDataset.loadCities()).thenReturn(Flux.just(testCity, testCity2, testCity3));
+		Mockito.when(citiesDataset.loadCities())
+			.thenReturn(Flux.just(testCity, testCity2, testCity3));
 
-		webTestClient.get().uri("/cities?fromPopulation=1000").accept(MediaType.APPLICATION_JSON).exchange()
-				.expectStatus().isOk().expectBodyList(City.class).hasSize(2).contains(testCity);
+		webTestClient.get().uri("/cities?fromPopulation=1000")
+			.accept(MediaType.APPLICATION_JSON).exchange()
+			.expectStatus().isOk()
+			.expectBodyList(City.class).hasSize(2).contains(testCity);
 	}
 
 	@Test
@@ -50,13 +56,17 @@ public class CitiesControllerTest {
 				13.4050, 3769495);
 		Mockito.when(citiesDataset.loadCities()).thenReturn(Flux.just(testCity));
 
-		webTestClient.get().uri("/cities/1").accept(MediaType.APPLICATION_JSON).exchange().expectStatus().isOk()
-				.expectBody(City.class).isEqualTo(testCity).returnResult();
+		webTestClient.get().uri("/cities/1")
+			.accept(MediaType.APPLICATION_JSON).exchange()
+			.expectStatus().isOk()
+			.expectBody(City.class).isEqualTo(testCity).returnResult();
 	}
 
 	@Test
 	public void testGetCityById_shouldReturn404whenCityNotFound() {
 		Mockito.when(citiesDataset.loadCities()).thenReturn(Flux.empty());
-		webTestClient.get().uri("/cities/1").accept(MediaType.APPLICATION_JSON).exchange().expectStatus().isNotFound();
+		webTestClient.get().uri("/cities/1")
+			.accept(MediaType.APPLICATION_JSON).exchange()
+			.expectStatus().isNotFound();
 	}
 }

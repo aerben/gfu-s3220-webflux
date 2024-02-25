@@ -19,7 +19,8 @@ class RapidAPICitiesServiceTest {
 	@Test
 	void retrieveCitiesForCountryTest() {
 		Mono<List<City>> de = remoteGeoDataService.retrieveCitiesForCountry("DE");
-		StepVerifier.create(de).expectNextMatches(list -> list.size() == 100).verifyComplete();
+		StepVerifier.create(de)
+			.expectNextMatches(list -> list.size() == 100).verifyComplete();
 	}
 
 	@Test
@@ -36,7 +37,8 @@ class RapidAPICitiesServiceTest {
 		Mono<List<City>> de = remoteGeoDataService.retrieveCitiesWithPopulationGreaterThan("DE", 3000000);
 		List<City> block = de.block();
 		System.out.println(block);
-		StepVerifier.create(de).expectNextMatches(list -> list.stream().allMatch(city -> city.population() >= 3000000))
-				.verifyComplete();
+		StepVerifier.create(de)
+			.expectNextMatches(list -> list.stream().allMatch(city -> city.population() >= 3000000))
+			.verifyComplete();
 	}
 }

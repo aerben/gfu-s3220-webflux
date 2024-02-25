@@ -24,10 +24,10 @@ class RatingControllerTest {
 	private RatingRepository ratingRepository;
 
 	@MockBean
-	private UserRetriever userRetriever;
+	private UserRepository userRepository;
 
 	@MockBean
-	private RestaurantRetriever restaurantRetriever;
+	private RestaurantRepository restaurantRetriever;
 
 	@Test
 	void testCreateRating() {
@@ -62,19 +62,19 @@ class RatingControllerTest {
 	private void mockSetup(Rating rating) {
     when(ratingRepository.save(any(Rating.class))).thenReturn(Mono.just(rating));
 
-    when(userRetriever.findUser(anyInt()))
+    when(userRepository.findById(anyInt()))
         .then(
             call ->
                 Mono.just(
                     new User(
                         call.getArgument(0), faker.name().firstName(), faker.name().lastName())));
 
-    when(userRetriever.findUser(Mockito.argThat(integer -> integer < 0))).thenReturn(Mono.empty());
+    when(userRepository.findById(Mockito.argThat(integer -> integer < 0))).thenReturn(Mono.empty());
 
-    when(restaurantRetriever.findRestaurant(anyInt()))
+    when(restaurantRetriever.findById(anyInt()))
         .then(call -> Mono.just(new Restaurant(call.getArgument(0), faker.company().name())));
 
-    when(restaurantRetriever.findRestaurant(Mockito.argThat(integer -> integer < 0)))
+    when(restaurantRetriever.findById(Mockito.argThat(integer -> integer < 0)))
         .thenReturn(Mono.empty());
   }
 }

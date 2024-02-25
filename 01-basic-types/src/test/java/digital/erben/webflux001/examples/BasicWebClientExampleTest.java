@@ -23,21 +23,28 @@ public class BasicWebClientExampleTest {
 
 	@Test
 	public void callApiViaWebClientToMono() {
-		Mono<List<City>> cities = WebClient.create().get().uri(URI.create(URL))
-				.header("X-RapidAPI-Key", "16e1546221msh6270284dc1921b8p16483fjsnf33be4140b48")
-				.header("X-RapidAPI-Host", "wft-geo-db.p.rapidapi.com").retrieve().bodyToMono(CitiesResponse.class)
-				.mapNotNull(CitiesResponse::data);
+		Mono<List<City>> cities = WebClient.create()
+			.get()
+			.uri(URI.create(URL))
+			.header("X-RapidAPI-Key", "16e1546221msh6270284dc1921b8p16483fjsnf33be4140b48")
+			.header("X-RapidAPI-Host", "wft-geo-db.p.rapidapi.com").retrieve().bodyToMono(CitiesResponse.class)
+			.mapNotNull(CitiesResponse::data);
 
 		StepVerifier.create(cities).expectNextMatches(list -> list.size() == 100).expectComplete().verify();
 	}
 
 	@Test
 	public void callApiViaWebClientToFlux() {
-		Flux<City> cities = WebClient.create().get().uri(URI.create(URL))
-				.header("X-RapidAPI-Key", "16e1546221msh6270284dc1921b8p16483fjsnf33be4140b48")
-				.header("X-RapidAPI-Host", "wft-geo-db.p.rapidapi.com").retrieve().bodyToMono(CitiesResponse.class)
-				.flatMapIterable(CitiesResponse::data);
+		Flux<City> cities = WebClient.create()
+			.get()
+			.uri(URI.create(URL))
+			.header("X-RapidAPI-Key", "16e1546221msh6270284dc1921b8p16483fjsnf33be4140b48")
+			.header("X-RapidAPI-Host", "wft-geo-db.p.rapidapi.com").retrieve().bodyToMono(CitiesResponse.class)
+			.flatMapIterable(CitiesResponse::data);
 
-		StepVerifier.create(cities).expectNextCount(100).expectComplete().verify();
+		StepVerifier.create(cities)
+			.expectNextCount(100)
+			.expectComplete()
+			.verify();
 	}
 }
