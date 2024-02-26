@@ -1,0 +1,7 @@
+- Create new project via [Starter Page](https://start.spring.io/#!type=gradle-project&language=java&platformVersion=3.2.3&packaging=jar&jvmVersion=17&groupId=digital.erben&artifactId=webflux-demo&name=webflux-demo&description=Webflux-Demo&packageName=digital.erben.webflux&dependencies=webflux)
+- [PublisherExamplesTest.java](src%2Ftest%2Fjava%2Fdigital%2Ferben%2Fwebflux001%2Fexamples%2FPublisherExamplesTest.java)
+- [IntermediatesExampleTest.java](src%2Ftest%2Fjava%2Fdigital%2Ferben%2Fwebflux001%2Fexamples%2FIntermediatesExampleTest.java)
+- Task 1
+- [BasicWebClientExampleTest.java](src%2Ftest%2Fjava%2Fdigital%2Ferben%2Fwebflux001%2Fexamples%2FBasicWebClientExampleTest.java)
+- Task 2
+- [ErrorHandlingExample.java](src%2Ftest%2Fjava%2Fdigital%2Ferben%2Fwebflux001%2Fexamples%2FErrorHandlingExample.java)

@@ -1,0 +1,7 @@
+- Create new project via [Starter Page](https://start.spring.io/#!type=gradle-project&language=java&platformVersion=3.2.3&packaging=jar&jvmVersion=17&groupId=digital.erben&artifactId=webflux-demo&name=webflux-demo&description=Webflux-Demo&packageName=digital.erben.webflux&dependencies=webflux,security,oauth2-client)
+- Add a simple controller and show that BASIC auth is active
+- Add a security filter chain as in [SecurityConfig.java](src%2Fmain%2Fjava%2Fdigital%2Ferben%2Freactiveweb%2FSecurityConfig.java) that enables OAuth2 via GitHub
+- Add [application.yml](src%2Fmain%2Fresources%2Fapplication.yml)
+- Add static files and explain what the webpage does
+- Add the dependencies necessary for jquery etc.
+- Task 1 and 2

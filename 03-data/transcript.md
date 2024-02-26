@@ -1,0 +1,6 @@
+- Create new project via [Starter Page](https://start.spring.io/#!type=gradle-project&language=java&platformVersion=3.2.3&packaging=jar&jvmVersion=17&groupId=digital.erben&artifactId=webflux-demo&name=webflux-demo&description=Webflux-Demo&packageName=digital.erben.webflux&dependencies=webflux,data-mongodb-reactive,testcontainers)
+- Flesh out a simple data model like the one in [Rating.java](src%2Fmain%2Fjava%2Fdigital%2Ferben%2Freactiveweb%2Fratings%2FRating.java)
+- Write a simple CRUD controller interface like in [RatingController.java](src%2Fmain%2Fjava%2Fdigital%2Ferben%2Freactiveweb%2Fratings%2FRatingController.java)
+- Implement a repository like in [RatingRepository.java](src%2Fmain%2Fjava%2Fdigital%2Ferben%2Freactiveweb%2Fratings%2FRatingRepository.java)
+- Write a test like in [RatingRepositoryTest.java](src%2Ftest%2Fjava%2Fdigital%2Ferben%2Freactiveweb%2Fratings%2FRatingRepositoryTest.java)
+- Task 1

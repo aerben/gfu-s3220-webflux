@@ -28,5 +28,3 @@ Benutzers auf `System.out` ausgaben.
 - Lege ein neues POST-Mapping in `ReactiveWebApplication` an. Du kannst, wenn du willst, auch eine neue Klasse verwenden. Denke dann nur daran, sie mit `@RestController` zu annotieren.
 - `OAuth2User` hat _keine_ sinnvolle `toString()`-Implementierung. Lies am besten die Attribute aus mit der `getAttributes()`-Methode.
 
-# Aufgabe 3: Reactive Endpoints mit OAuth2-authentifizierten WebClients
-

@@ -1,0 +1,7 @@
+- Create new project via [Starter Page](https://start.spring.io/#!type=gradle-project&language=java&platformVersion=3.2.3&packaging=jar&jvmVersion=17&groupId=digital.erben&artifactId=webflux-demo&name=webflux-demo&description=Webflux-Demo&packageName=digital.erben.webflux&dependencies=webflux)
+- Create a GET controller with a simple data model like the one in [BookmarksController.java](src%2Fmain%2Fjava%2Fdigital%2Ferben%2Freactiveweb%2Fbookmarks%2FBookmarksController.java)
+- Task 1
+- Create POST, PUT and DELETE endpoints like in [BookmarksController.java](src%2Fmain%2Fjava%2Fdigital%2Ferben%2Freactiveweb%2Fbookmarks%2FBookmarksController.java)
+- Task 2
+- Show error handling like asked for [RatingController.java](src%2Fmain%2Fjava%2Fdigital%2Ferben%2Freactiveweb%2Fratings%2FRatingController.java)
+- Task 3, 4 and 5
