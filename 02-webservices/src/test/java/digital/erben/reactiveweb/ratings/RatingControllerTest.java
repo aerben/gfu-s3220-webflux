@@ -78,6 +78,30 @@ class RatingControllerTest {
             .isBadRequest();
     }
 
+    @Test
+    void testDeleteRating_shouldFailWhenRatingIsLocked() {
+        when(ratingRepository.findById(any())).thenReturn(Mono.just(new Rating(1, 5, 0, 1, true)));
+
+        this.webTestClient
+            .delete().uri("/ratings/1")
+            .exchange().expectStatus().isBadRequest();
+
+        Mockito.verify(ratingRepository).findById(1);
+        Mockito.verifyNoMoreInteractions(ratingRepository);
+    }
+
+
+    @Test
+    void testCreateRating_shouldFailWhenIdIsAlreadySet() {
+        this.webTestClient
+            .post().uri("/ratings")
+            .body(Mono.just(new Rating(1, 1, 1, 1, true)), Rating.class)
+            .exchange()
+            .expectStatus()
+            .isBadRequest();
+        Mockito.verifyNoInteractions(ratingRepository);
+    }
+
     private void mockSetup(Rating rating) {
         when(ratingRepository.save(any(Rating.class))).thenReturn(Mono.just(rating));
 

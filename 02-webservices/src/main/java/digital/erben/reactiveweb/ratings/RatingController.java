@@ -50,8 +50,8 @@ public class RatingController {
 	}
 
 	@DeleteMapping("/{id}")
-	public Mono<Void> deleteRating(@PathVariable("id") Integer id) {
-		return repository.deleteById(id);
+	public Mono<ResponseEntity<Void>> deleteRating(@PathVariable("id") Integer id) {
+		return repository.deleteById(id).thenReturn(ResponseEntity.ok().build());
 	}
 
 	private Mono<Rating> checkIfRestaurantExists(Rating in) {

@@ -8,7 +8,6 @@ import reactor.core.publisher.Mono;
 @RestController
 @RequestMapping("/bookmarks")
 public class BookmarksController {
-
 	private final BookmarkService service;
 
 	public BookmarksController(BookmarkService service) {
