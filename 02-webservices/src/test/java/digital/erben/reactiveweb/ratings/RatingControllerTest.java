@@ -16,65 +16,85 @@ import reactor.core.publisher.Mono;
 
 @WebFluxTest(controllers = RatingController.class)
 class RatingControllerTest {
-	private final Faker faker = new Faker();
-	@Autowired
-	private WebTestClient webTestClient;
+    private final Faker faker = new Faker();
+    @Autowired
+    private WebTestClient webTestClient;
 
-	@MockBean
-	private RatingRepository ratingRepository;
+    @MockBean
+    private RatingRepository ratingRepository;
 
-	@MockBean
-	private UserRepository userRepository;
+    @MockBean
+    private UserRepository userRepository;
 
-	@MockBean
-	private RestaurantRepository restaurantRetriever;
+    @MockBean
+    private RestaurantRepository restaurantRetriever;
 
-	@Test
-	void testCreateRating() {
-		Rating rating = new Rating(1, 5, 0, 0, false);
+    @Test
+    void testCreateRating() {
+        Rating rating = new Rating(1, 5, 0, 0, false);
 
-		mockSetup(rating);
+        mockSetup(rating);
 
-		this.webTestClient.post().uri("/ratings").body(Mono.just(rating), Rating.class).accept(APPLICATION_JSON)
-				.exchange().expectStatus().isOk().expectBody(Rating.class).isEqualTo(rating);
-	}
+        this.webTestClient.post()
+            .uri("/ratings")
+            .body(Mono.just(rating), Rating.class)
+            .accept(APPLICATION_JSON)
+            .exchange()
+            .expectStatus()
+            .isOk()
+            .expectBody(Rating.class)
+            .isEqualTo(rating);
+    }
 
-	@Test
-	void testCreateRating_shouldFailOnInvalidRating() {
-		Rating rating = new Rating(1, 6, 0, 0, false);
+    @Test
+    void testCreateRating_shouldFailOnInvalidRating() {
+        Rating rating = new Rating(1, 6, 0, 0, false);
 
-		mockSetup(rating);
+        mockSetup(rating);
 
-		this.webTestClient.post().uri("/ratings").body(Mono.just(rating), Rating.class).accept(APPLICATION_JSON)
-				.exchange().expectStatus().isBadRequest();
-	}
+        this.webTestClient
+            .post()
+            .uri("/ratings")
+            .body(Mono.just(rating), Rating.class)
+            .accept(APPLICATION_JSON)
+            .exchange()
+            .expectStatus()
+            .isBadRequest();
+    }
 
-	@Test
-	void testCreateRating_shouldFailOnInvalidUser() {
-		Rating rating = new Rating(1, 5, 0, -1, false);
+    @Test
+    void testCreateRating_shouldFailOnInvalidUser() {
+        Rating rating = new Rating(1, 5, 0, -1, false);
 
-		mockSetup(rating);
+        mockSetup(rating);
 
-		this.webTestClient.post().uri("/ratings").body(Mono.just(rating), Rating.class).accept(APPLICATION_JSON)
-				.exchange().expectStatus().isBadRequest();
-	}
+        this.webTestClient
+            .post()
+            .uri("/ratings")
+            .body(Mono.just(rating), Rating.class)
+            .accept(APPLICATION_JSON)
+            .exchange()
+            .expectStatus()
+            .isBadRequest();
+    }
 
-	private void mockSetup(Rating rating) {
-    when(ratingRepository.save(any(Rating.class))).thenReturn(Mono.just(rating));
+    private void mockSetup(Rating rating) {
+        when(ratingRepository.save(any(Rating.class))).thenReturn(Mono.just(rating));
 
-    when(userRepository.findById(anyInt()))
-        .then(
-            call ->
-                Mono.just(
-                    new User(
-                        call.getArgument(0), faker.name().firstName(), faker.name().lastName())));
+        when(userRepository.findById(anyInt()))
+            .then(
+                call ->
+                    Mono.just(
+                        new User(
+                            call.getArgument(0), faker.name().firstName(), faker.name().lastName())));
 
-    when(userRepository.findById(Mockito.argThat(integer -> integer < 0))).thenReturn(Mono.empty());
+        when(userRepository.findById(Mockito.argThat(integer -> integer < 0)))
+            .thenReturn(Mono.empty());
 
-    when(restaurantRetriever.findById(anyInt()))
-        .then(call -> Mono.just(new Restaurant(call.getArgument(0), faker.company().name())));
+        when(restaurantRetriever.findById(anyInt()))
+            .then(call -> Mono.just(new Restaurant(call.getArgument(0), faker.company().name())));
 
-    when(restaurantRetriever.findById(Mockito.argThat(integer -> integer < 0)))
-        .thenReturn(Mono.empty());
-  }
+        when(restaurantRetriever.findById(Mockito.argThat(integer -> integer < 0)))
+            .thenReturn(Mono.empty());
+    }
 }
