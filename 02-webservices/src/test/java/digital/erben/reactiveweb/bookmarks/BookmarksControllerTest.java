@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.ResponseEntity;
 import reactor.core.publisher.Flux;
@@ -72,7 +73,7 @@ public class BookmarksControllerTest {
 	public void updateBookmarkNotFound() {
 		Bookmark bookmark = new Bookmark(1L, 1L);
 		when(service.findById(1L)).thenReturn(Mono.empty());
-
+		when(service.save(Mockito.any())).thenReturn(Mono.empty());
 		StepVerifier.create(controller.updateBookmark(1L, bookmark))
 			.expectNext(ResponseEntity.notFound().build())
 			.verifyComplete();
