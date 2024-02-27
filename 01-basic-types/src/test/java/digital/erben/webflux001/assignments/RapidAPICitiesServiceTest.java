@@ -20,7 +20,8 @@ class RapidAPICitiesServiceTest {
 	void retrieveCitiesForCountryTest() {
 		Mono<List<City>> de = remoteGeoDataService.retrieveCitiesForCountry("DE");
 		StepVerifier.create(de)
-			.expectNextMatches(list -> list.size() == 100).verifyComplete();
+			.expectNextMatches(list -> list.size() == 100 && list.stream().allMatch(city -> city.country().equals("Germany")))
+			.verifyComplete();
 	}
 
 	@Test
