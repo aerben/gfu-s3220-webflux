@@ -1,12 +1,12 @@
 
 ### Schritt 1: Projekt erstellen
 
-Bevor wir mit dem Coding beginnen, müssen wir das Projekt erstellen. Dies machen wir über [start.spring.io](https://start.spring.io/). Dieser Link generiert ein Projekt, welche die nötigen Abhängigkeiten bereits enthält.
+Bevor wir mit dem Coding beginnen, müssen wir das Projekt erstellen. Dies machen wir über [start.spring.io](https://start.spring.io/#!type=gradle-project&language=java&platformVersion=3.2.3&packaging=jar&jvmVersion=17&groupId=com.example&artifactId=demo&name=demo&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.demo&dependencies=webflux,data-r2dbc,h2). Dieser Link generiert ein Projekt, welche die nötigen Abhängigkeiten bereits enthält.
 
 ### Schritt 2: `Book` Entity erstellen
 
 Nachdem das Projekt eingerichtet ist, erstellen wir ein Paket namens `model` innerhalb des Hauptpakets `de.gfu.webflux` und fügen eine Klasse `Book` hinzu. Diese Klasse repräsentiert die Datenstruktur eines Buches mit einer ID, einem Titel und einem Autor.
-
+Denke bitte daran, getter und setter zu implementieren.
 ```java
 package de.gfu.webflux.model;
 
@@ -24,11 +24,10 @@ public class Book {
     // TODO: Konstruktoren, Getter und Setter
 }
 ```
-Füge außerdem in die `application.properties` folgende Zeile ein:
+Füge außerdem eine `schema.sql` in `src/main/resources` ein mit folgendem Inhalt:
+```sql
+CREATE TABLE IF NOT EXISTS BOOKS (id SERIAL PRIMARY KEY, title VARCHAR(255), author VARCHAR(255), birthday DATE);
 ```
-spring.jpa.hibernate.ddl-auto=update
-```
-Dadurch wird das Datenbankschema später automatisch angelegt.
 
 ### Schritt 3: `BookRepository` erstellen
 
