@@ -1,7 +1,12 @@
 package digital.erben.reactiveweb.ratings;
 
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.observation.ObservationRegistry;
+import jakarta.annotation.PostConstruct;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.observability.micrometer.Micrometer;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -12,17 +17,31 @@ public class RatingController {
 	private final RatingRepository repository;
 	private final UserRepository userRepository;
 	private final RestaurantRepository restaurantRepository;
+	private final MeterRegistry registry;
 
 	public RatingController(RatingRepository repository, UserRepository userRepository,
-							RestaurantRepository restaurantRepository) {
+                            RestaurantRepository restaurantRepository, MeterRegistry registry) {
 		this.repository = repository;
 		this.userRepository = userRepository;
 		this.restaurantRepository = restaurantRepository;
+        this.registry = registry;
+	}
+
+	@PostConstruct
+	public void setupRatings() {
+		for (int i = 0; i < 10; i++) {
+			this.repository.save(new Rating(i, 5, i, i, false)).block();
+		}
 	}
 
 	@PostMapping
 	public Mono<ResponseEntity<Rating>> createRating(@RequestBody Mono<Rating> rating) {
 		return rating.doOnSuccess(this::checkIfRatingInBounds) //
+			.doOnSuccess(r -> {
+				if (r.id() != null) {
+					throw new IllegalArgumentException("id already set");
+				}
+			})
 			.checkpoint("validate") //
 			.flatMap(this::checkIfUserExists) //
 			.checkpoint("check-user") //
@@ -46,12 +65,28 @@ public class RatingController {
 
 	@GetMapping
 	public Flux<Rating> getAllRatings() {
-		return repository.findAll();
+		return repository.findAll()
+			.name("get-all-ratings")
+			.tag("k", "v")
+			.tap(Micrometer.metrics(registry));
 	}
 
 	@DeleteMapping("/{id}")
 	public Mono<ResponseEntity<Void>> deleteRating(@PathVariable("id") Integer id) {
-		return repository.deleteById(id).thenReturn(ResponseEntity.ok().build());
+        return repository
+			.findById(id)
+			.flatMap(this::checkIfLocked)
+            .flatMap(i -> repository.deleteById(id))
+            .<ResponseEntity<Void>>thenReturn(ResponseEntity.ok().build())
+            .onErrorReturn(ResponseEntity.badRequest().build());
+	}
+
+	private Mono<Rating> checkIfLocked(Rating rating) {
+		if (rating.locked()) {
+			return Mono.error(new IllegalArgumentException(""));
+		} else {
+			return Mono.just(rating);
+		}
 	}
 
 	private Mono<Rating> checkIfRestaurantExists(Rating in) {

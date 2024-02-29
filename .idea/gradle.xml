@@ -12,7 +12,11 @@
             <option value="$PROJECT_DIR$/01-basic-types" />
             <option value="$PROJECT_DIR$/02-webservices" />
             <option value="$PROJECT_DIR$/03-data-mongodb" />
-            <option value="$PROJECT_DIR$/04-security-oauth2" />
+            <option value="$PROJECT_DIR$/04-data-r2dbc" />
+            <option value="$PROJECT_DIR$/05-security-basic" />
+            <option value="$PROJECT_DIR$/06-security-oauth2" />
+            <option value="$PROJECT_DIR$/07-websockets" />
+            <option value="$PROJECT_DIR$/08-multicast" />
           </set>
         </option>
       </GradleProjectSettings>
