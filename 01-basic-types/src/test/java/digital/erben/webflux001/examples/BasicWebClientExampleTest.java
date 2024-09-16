@@ -4,10 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import digital.erben.webflux001.model.CitiesResponse;
 import digital.erben.webflux001.model.City;
-
 import java.net.URI;
 import java.util.List;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.web.reactive.function.client.*;
 import reactor.core.publisher.Flux;

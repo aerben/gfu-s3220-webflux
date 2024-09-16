@@ -1,9 +1,8 @@
 package digital.erben.webflux001;
 
+import java.time.Duration;
 import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Flux;
-
-import java.time.Duration;
 
 public class MulticastExampleTest {
 

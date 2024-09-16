@@ -1,9 +1,8 @@
 package digital.erben.reactiveweb.ratings;
 
-import org.springframework.data.annotation.Id;
-
 import java.time.LocalDate;
 import java.util.Objects;
+import org.springframework.data.annotation.Id;
 
 public class Customer {
 

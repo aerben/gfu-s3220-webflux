@@ -3,25 +3,19 @@ package digital.erben.webflux001;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import io.github.resilience4j.ratelimiter.RateLimiter;
-import io.github.resilience4j.ratelimiter.RateLimiterConfig;
-import io.github.resilience4j.ratelimiter.RateLimiterRegistry;
-import io.github.resilience4j.reactor.ratelimiter.operator.RateLimiterOperator;
+import java.net.URI;
+import java.time.Duration;
+import java.util.List;
+import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.*;
-import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.util.retry.Retry;
-
-import java.net.URI;
-import java.time.Duration;
-import java.util.List;
-import java.util.function.Predicate;
 
 
 @SuppressWarnings("UnnecessaryLocalVariable")
