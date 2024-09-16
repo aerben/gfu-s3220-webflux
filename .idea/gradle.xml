@@ -9,6 +9,8 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/00a-webservices-cors" />
+            <option value="$PROJECT_DIR$/00b-webservices-openapi" />
             <option value="$PROJECT_DIR$/01-basic-types" />
             <option value="$PROJECT_DIR$/02-webservices" />
             <option value="$PROJECT_DIR$/03-data-mongodb" />
