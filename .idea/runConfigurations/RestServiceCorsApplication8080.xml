@@ -1,0 +1,15 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="RestServiceCorsApplication8080" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="webflux-root.00a-webservices-cors.main" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="digital.erben.RestServiceCorsApplication" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="digital.erben.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
